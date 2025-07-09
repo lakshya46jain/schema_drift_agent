@@ -1,0 +1,6 @@
+{
+  "fields": [
+    { "name": "id", "type": "IntegerType" },
+    { "name": "name", "type": "StringType" }
+  ]
+}

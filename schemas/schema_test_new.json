@@ -1,0 +1,6 @@
+{
+  "fields": [
+    { "name": "id", "type": "LongType" },
+    { "name": "age", "type": "IntegerType" }
+  ]
+}
