@@ -1,0 +1,14 @@
+{
+  "fields": [
+    {
+      "name": "user",
+      "type": {
+        "type": "struct",
+        "fields": [
+          { "name": "id", "type": "IntegerType" },
+          { "name": "email", "type": "StringType" }
+        ]
+      }
+    }
+  ]
+}
