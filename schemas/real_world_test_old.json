@@ -1,0 +1,31 @@
+{
+    "fields": [
+        {"name": "user_id", "type": "StringType"},
+        {"name": "first_name", "type": "StringType"},
+        {"name": "last_name", "type": "StringType"},
+        {"name": "email", "type": "StringType"},
+        {"name": "phone_number", "type": "StringType"},
+        {"name": "created_at", "type": "TimestampType"},
+        {"name": "updated_at", "type": "TimestampType"},
+        {"name": "is_premium", "type": "BooleanType"},
+        {"name": "last_login", "type": "TimestampType"},
+        {"name": "status", "type": "StringType"},
+        {"name": "metadata", "type": {
+            "type": "struct",
+            "fields": [
+                {"name": "source", "type": "StringType"},
+                {"name": "campaign", "type": "StringType"},
+                {"name": "referral_code", "type": "StringType"},
+                {"name": "score", "type": "DoubleType"}
+            ]
+        }},
+        {"name": "preferences", "type": {
+            "type": "struct",
+            "fields": [
+                {"name": "newsletter", "type": "BooleanType"},
+                {"name": "notifications", "type": "BooleanType"},
+                {"name": "ads_personalized", "type": "BooleanType"}
+            ]
+        }}
+    ]
+}

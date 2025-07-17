@@ -1,0 +1,14 @@
+{
+    "user_id": "userID",
+    "first_name": "firstName",
+    "last_name": "surname",
+    "phone_number": "phone",
+    "created_at": "account_created",
+    "is_premium": "premium_user",
+    "last_login": "lastLogin",
+    "updated_at": "updatedAt",
+    "metadata.source": "metadata.origin",
+    "metadata.campaign": "metadata.campaign_id",
+    "metadata.referral_code": "metadata.referral",
+    "preferences.notifications": "preferences.ads"
+}

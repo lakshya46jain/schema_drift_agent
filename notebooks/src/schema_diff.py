@@ -13,7 +13,7 @@ def load_schema(path):
 def compute_schema_diff(old, new, path_prefix = ""):
     """
     Recursively compares old and new schema definitions to detect:
-    - Added fields
+    - Added fields 
     - Removed fields
     - Type-changed fields
     - (Renames handled separately)
@@ -88,20 +88,19 @@ def detect_renames(diff, old_fields_map, new_fields_map, rename_hints=None):
     if rename_hints:
         for old_name, new_name in rename_hints.items():
             if old_name in diff["removed"] and new_name in diff["added"]:
-                if old_fields_map.get(old_name) == new_fields_map.get(new_name):
-                    renamed.append({"from": old_name, "to": new_name})
-                    diff["removed"].remove(old_name)
-                    diff["added"].remove(new_name)
+                # Mark as renamed
+                renamed.append({"from": old_name, "to": new_name})
+                diff["removed"].remove(old_name)
+                diff["added"].remove(new_name)
 
-    # Heuristic detection (based on name + type match)
-    for added in diff["added"][:]:
-        for removed in diff["removed"][:]:
-            if added.lower().startswith(removed.lower()) or removed.lower().startswith(added.lower()):
-                if old_fields_map.get(removed) == new_fields_map.get(added):
-                    renamed.append({"from": removed, "to": added})
-                    diff["removed"].remove(removed)
-                    diff["added"].remove(added)
-                    break
+                # Track type change if types differ
+                if old_name in old_fields_map and new_name in new_fields_map:
+                    if old_fields_map[old_name] != new_fields_map[new_name]:
+                        diff["type_changed"].append({
+                            'col': new_name,
+                            'from': old_fields_map[old_name],
+                            'to': new_fields_map[new_name]
+                        })
 
     diff["renamed"].extend(renamed)
 
@@ -122,9 +121,23 @@ def schema_drift_agent(old_schema, new_schema, rename_hints=None):
     """
     diff = compute_schema_diff(old_schema, new_schema)
 
-    # Flatten top-level field names only (dot-prefixed nested not supported here)
-    old_map = {f["name"]: f["type"] for f in old_schema["fields"]}
-    new_map = {f["name"]: f["type"] for f in new_schema["fields"]}
+    # Flatten top-level and nested fields for rename/type tracking
+    def flatten_fields(schema, prefix=""):
+        field_map = {}
+        for field in schema["fields"]:
+            name = field["name"]
+            full_name = f"{prefix}.{name}" if prefix else name
+            f_type = field["type"]
+
+            if isinstance(f_type, dict) and f_type.get("type") == "struct":
+                nested = flatten_fields({"fields": f_type["fields"]}, full_name)
+                field_map.update(nested)
+            else:
+                field_map[full_name] = f_type
+        return field_map
+
+    old_map = flatten_fields(old_schema)
+    new_map = flatten_fields(new_schema)
 
     detect_renames(diff, old_map, new_map, rename_hints)
     return diff

@@ -1,0 +1,35 @@
+{
+    "fields": [
+        {"name": "userID", "type": "StringType"},
+        {"name": "firstName", "type": "StringType"},
+        {"name": "surname", "type": "StringType"},
+        {"name": "email", "type": "MapType"},
+        {"name": "phone", "type": "StringType"},
+        {"name": "account_created", "type": "DateType"},
+        {"name": "updatedAt", "type": "TimestampType"},
+        {"name": "premium_user", "type": "BooleanType"},
+        {"name": "lastLogin", "type": "StringType"},
+        {"name": "status", "type": "StringType"},
+        {"name": "metadata", "type": {
+            "type": "struct",
+            "fields": [
+                {"name": "origin", "type": "StringType"},
+                {"name": "campaign_id", "type": "StringType"},
+                {"name": "referral", "type": "StringType"},
+                {"name": "score", "type": "IntegerType"},
+                {"name": "segment", "type": "StringType"}
+            ]
+        }},
+        {"name": "preferences", "type": {
+            "type": "struct",
+            "fields": [
+                {"name": "newsletter", "type": "BooleanType"},
+                {"name": "ads", "type": "BooleanType"},
+                {"name": "ads_personalized", "type": "StringType"},
+                {"name": "dark_mode", "type": "BooleanType"}
+            ]
+        }},
+        {"name": "timezone", "type": "StringType"},
+        {"name": "login_streak", "type": "IntegerType"},
+    ]
+}
