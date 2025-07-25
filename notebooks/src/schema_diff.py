@@ -39,7 +39,7 @@ def compute_schema_diff(old, new, path_prefix = ""):
         full_name = f"{path_prefix}.{field_name}" if path_prefix else field_name
 
         if field_name not in old_fields:
-            diff['added'].append(full_name)
+            diff['added'].append({'col': full_name, 'to_type': new_type})
         else:
             old_type = old_fields[field_name]
 
@@ -55,8 +55,8 @@ def compute_schema_diff(old, new, path_prefix = ""):
             elif old_type != new_type:
                 diff['type_changed'].append({
                         'col': full_name,
-                        'from': old_type,
-                        'to': new_type
+                        'from_type': old_type,
+                        'to_type': new_type
                     })
 
     for field_name in old_fields:
@@ -89,7 +89,7 @@ def detect_renames(diff, old_fields_map, new_fields_map, rename_hints=None):
         for old_name, new_name in rename_hints.items():
             if old_name in diff["removed"] and new_name in diff["added"]:
                 # Mark as renamed
-                renamed.append({"from": old_name, "to": new_name})
+                renamed.append({"from_col": old_name, "to_col": new_name})
                 diff["removed"].remove(old_name)
                 diff["added"].remove(new_name)
 
@@ -98,8 +98,8 @@ def detect_renames(diff, old_fields_map, new_fields_map, rename_hints=None):
                     if old_fields_map[old_name] != new_fields_map[new_name]:
                         diff["type_changed"].append({
                             'col': new_name,
-                            'from': old_fields_map[old_name],
-                            'to': new_fields_map[new_name]
+                            'from_type': old_fields_map[old_name],
+                            'to_type': new_fields_map[new_name]
                         })
 
     diff["renamed"].extend(renamed)
