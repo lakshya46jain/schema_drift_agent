@@ -1,7 +1,5 @@
 import openai
 
-openai.api_key = "sk-xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
-
 def call_openai(prompt: str, model="gpt-4o", max_tokens=200) -> str:
     """
     Sends a prompt to OpenAI and returns the code suggestion.
@@ -15,7 +13,9 @@ def call_openai(prompt: str, model="gpt-4o", max_tokens=200) -> str:
         str: Model's response or error message.
     """
     try:
-        response = openai.ChatCompletion.create(
+        client = openai.OpenAI(api_key = "sk-xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx")
+        
+        response = client.chat.completions.create(
             model=model,
             messages=[{"role": "user", "content": prompt}],
             max_tokens=max_tokens,

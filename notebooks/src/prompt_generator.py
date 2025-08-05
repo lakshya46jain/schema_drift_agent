@@ -1,9 +1,12 @@
-from prompt_template.py import PromptTemplate
+import sys
+sys.path.append("/Workspace/Users/lakshya.jain@tmdc.io/schema_drift_agent/notebooks/src")
+
+from custom_prompt_template import PromptTemplate
 
 TEMPLATES = {
     "column_added_flat": PromptTemplate(
         name = "column_added_flat",
-        meta = {
+        metadata = {
             "max_tokens": 100,
             "llm": "openai/gpt-4o"
         },
@@ -48,7 +51,7 @@ TEMPLATES = {
     ),
     "column_removed_flat": PromptTemplate(
         name = "column_removed_flat",
-        meta = {
+        metadata = {
             "max_tokens": 100,
             "llm": "openai/gpt-4o"
         },
@@ -89,7 +92,7 @@ TEMPLATES = {
     ),
     "type_changed_flat": PromptTemplate(
         name = "type_changed_flat",
-        meta = {
+        metadata = {
             "max_tokens": 100,
             "llm": "openai/gpt-4o"
         },
@@ -130,7 +133,7 @@ TEMPLATES = {
     ),
     "rename_flat": PromptTemplate(
         name = "rename_flat",
-        meta = {
+        metadata = {
             "max_tokens": 100,
             "llm": "openai/gpt-4o"
         },
