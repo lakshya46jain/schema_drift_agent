@@ -15,12 +15,11 @@ def call_openai(prompt: str, model="gpt-4o", max_tokens=200) -> str:
     try:
         client = openai.OpenAI(api_key = "sk-xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx")
         
-        response = client.chat.completions.create(
+        response = client.responses.create(
             model=model,
-            messages=[{"role": "user", "content": prompt}],
-            max_tokens=max_tokens,
-            temperature=0.2,
+            input=prompt,
+            max_output_tokens=max_tokens,
         )
-        return response.choices[0].message["content"]
+        return response.output_text
     except Exception as e:
         return f"[Error calling LLM]: {str(e)}"

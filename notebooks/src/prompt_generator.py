@@ -24,7 +24,7 @@ TEMPLATES = {
                 "Access to field metadata or JSON diff as context"
                 "Markdown code block generation"
             ),
-            "TASK_DEFINITION":(
+            "TASK_DEFINITION": (
                 "Given a new column, produce a PySpark snippet that adds it to DataFrame df with a default null cast to the appropriate type."
             ),
             "CONSTRAINTS_AND_POLICIES": (
@@ -41,10 +41,10 @@ TEMPLATES = {
                 "df = df.withColumn(\"{col}\", F.lit(None).cast(\"{to_type}\"))\n"
                 "```\n"
             ),
-            "AMBIGUITY_OR_RECOVERY_STRATEGY":(
+            "AMBIGUITY_OR_RECOVERY_STRATEGY": (
                 "If column type is missing or unrecognized, assume StringType. Prompt fallback logic should handle defaults."
             ),
-            "SAFETY_AND_GUARDRAILS":(
+            "SAFETY_AND_GUARDRAILS": (
                 "Never reference columns outside added list. Do not include comments or logs."
             )
         }
@@ -66,7 +66,7 @@ TEMPLATES = {
             "CAPABILITIES_AND_TOOLS": (
                 "PySpark DataFrame API: drop('{col}')"
             ),
-            "TASK_DEFINITION":(
+            "TASK_DEFINITION": (
                 "Generate PySpark code to drop the removed column from DataFrame df."
             ),
             "CONSTRAINTS_AND_POLICIES": (
@@ -82,10 +82,10 @@ TEMPLATES = {
                 "df = df.drop(\"{col}\")\n"
                 "```\n"
             ),
-            "AMBIGUITY_OR_RECOVERY_STRATEGY":(
+            "AMBIGUITY_OR_RECOVERY_STRATEGY": (
                 "If the column isn’t present in the DataFrame, return df unchanged."
             ),
-            "SAFETY_AND_GUARDRAILS":(
+            "SAFETY_AND_GUARDRAILS": (
                 "Ensure only the specified column is dropped."
             )
         }
@@ -108,7 +108,7 @@ TEMPLATES = {
                 "PySpark withColumn() and cast() APIs"
                 "Access to schema diff metadata"
             ),
-            "TASK_DEFINITION":(
+            "TASK_DEFINITION": (
                 "Cast the column to its new type using PySpark and return the modified DataFrame."
             ),
             "CONSTRAINTS_AND_POLICIES": (
@@ -123,10 +123,10 @@ TEMPLATES = {
                 "df = df.withColumn(\"{col}\", F.col(\"{col}\").cast(\"{to_type}\"))\n"
                 "```\n"
             ),
-            "AMBIGUITY_OR_RECOVERY_STRATEGY":(
+            "AMBIGUITY_OR_RECOVERY_STRATEGY": (
                 "If target type is unknown, assume StringType."
             ),
-            "SAFETY_AND_GUARDRAILS":(
+            "SAFETY_AND_GUARDRAILS": (
                 "Only modify the specified column."
             )
         }
@@ -148,7 +148,7 @@ TEMPLATES = {
             "CAPABILITIES_AND_TOOLS": (
                 "PySpark .withColumnRenamed() API"
             ),
-            "TASK_DEFINITION":(
+            "TASK_DEFINITION": (
                 "Generate PySpark code to rename column {from_col} to {to_col} in DataFrame df."
             ),
             "CONSTRAINTS_AND_POLICIES": (
@@ -163,14 +163,14 @@ TEMPLATES = {
                 "df = df.withColumnRenamed(\"{from_col}\", \"{to_col}\")\n"
                 "```\n"
             ),
-            "AMBIGUITY_OR_RECOVERY_STRATEGY":(
+            "AMBIGUITY_OR_RECOVERY_STRATEGY": (
                 "If either field is missing, skip transformation."
             ),
-            "SAFETY_AND_GUARDRAILS":(
+            "SAFETY_AND_GUARDRAILS": (
                 "Only rename if both field names are valid."
             )
         }
-    ),
+    )
 }
     
 DRIFT_TEMPLATE_MAP = {
