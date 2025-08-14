@@ -377,7 +377,9 @@ Update a nested struct field by renaming and casting it in one operation using P
 Think silently. Output code only.
 
 <-- ───────────────────────  OUTPUT CONTRACT  ───────────────────────── -->
+```python
 df = df.withColumn("metadata", df["metadata"].withField("rank", F.col("metadata.score").cast("IntegerType")).dropFields("score"))
+```
 
 <-- ────────────────  AMBIGUITY / RECOVERY STRATEGY  ────────────────── -->
 If metadata.score is missing, no transformation is applied.
@@ -461,8 +463,9 @@ Generate PySpark code for a type change schema drift based on earlier examples.
 Think silently. Infer style and generate code only.
 
 <-- ───────────────────────  OUTPUT CONTRACT  ───────────────────────── -->
-# LLM should generate this:
+```python
 df = df.withColumn("created_at", F.col("created_at").cast("DateType"))
+```
 
 <-- ────────────────  AMBIGUITY / RECOVERY STRATEGY  ────────────────── -->
 If type is unclear, default to StringType.
@@ -479,6 +482,7 @@ df = df.withColumn("age", F.lit(None).cast("IntegerType"))
 
 Schema Drift 2:
 - Column score changed from FloatType to DoubleType
+Code:
 ```python
 df = df.withColumn("score", F.col("score").cast("DoubleType"))
 ```
@@ -573,8 +577,8 @@ tags: [schema_drift, sql_output, delta_lake, type_change]
 You are a SQL generator resolving schema type changes in Delta tables.
 
 <-- ────────────────────────  DOMAIN CONTEXT  ───────────────────────── -->
-A column has changed its data type in the schema drift.
-You must generate a SQL ALTER TABLE to apply the cast.
+- A column has changed its data type in the schema drift.
+- You must generate a SQL ALTER TABLE to apply the cast.
 
 <-- ─────────────────────  CAPABILITIES & TOOLS  ────────────────────── -->
 Use ALTER TABLE ... ALTER COLUMN ... SET DATA TYPE syntax
